@@ -1,7 +1,7 @@
 <?php
 // array_mixing
 
-$list = array(1, 2, 3, 4, 5, 'A', 'B', 'C', 'D', 'F',);
+$list = array(1, 2, 3, 4, 5, 'A', 'B', 'C', 'D', 'F');
 
 $count = count($list);
 
