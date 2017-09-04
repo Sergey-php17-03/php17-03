@@ -20,8 +20,16 @@ echo '</pre>';
 // array_assoc_mixing
 
 $listAssoc = array(
-    "1" => 'one', "2" => 'two', "3" => 'three', "4" => 'four',
-    'A' => '[ei]', 'B' => '[bi:]', 'C' => '[si:]', 'D' => '[di:]', 'F' => '[ef]');
+    "1" => 'one',
+    "2" => 'two',
+    "3" => 'three',
+    "4" => 'four',
+    'A' => '[ei]',
+    'B' => '[bi:]',
+    'C' => '[si:]',
+    'D' => '[di:]',
+    'F' => '[ef]'
+);
 
 $count2 = count($listAssoc);
 
