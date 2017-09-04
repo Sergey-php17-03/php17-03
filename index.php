@@ -17,5 +17,24 @@ print_r($list);
 echo '</pre>';
 
 
+// array_assoc_mixing
 
+$listAssoc = array(
+    "1" => 'one', "2" => 'two', "3" => 'three', "4" => 'four',
+    'A' => '[ei]', 'B' => '[bi:]', 'C' => '[si:]', 'D' => '[di:]', 'F' => '[ef]');
+
+$count2 = count($listAssoc);
+
+for ($i = 0; $i < $count2 / 2; $i++) {
+    $assocKeys = array_keys($listAssoc);
+    $tmp = $listAssoc[$assocKeys[$i]];
+    $key = rand(0, $count2 - 1);
+
+    $listAssoc[$assocKeys[$i]] = $listAssoc[$assocKeys[$key]];
+    $listAssoc[$assocKeys[$key]] = $tmp;
+}
+
+echo '<pre>';
+print_r($listAssoc);
+echo '</pre>';
 
