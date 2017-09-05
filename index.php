@@ -46,3 +46,34 @@ echo '<pre>';
 print_r($listAssoc);
 echo '</pre>';
 
+
+// array_assoc_mixing -key => value is tied
+
+$listAssoc2 = array(
+    "1" => 'one',
+    "2" => 'two',
+    "3" => 'three',
+    "4" => 'four',
+    'A' => '[ei]',
+    'B' => '[bi:]',
+    'C' => '[si:]',
+    'D' => '[di:]',
+    'F' => '[ef]'
+);
+
+$count3 = count($listAssoc2);
+
+for ($i = 0; $i < $count3 / 2; $i++) {
+    $assocKeys = array_keys($listAssoc2);
+    $key2 = rand(0, $count3 - 1);
+    $tmp = $listAssoc2[$assocKeys[$key2]];
+
+    unset($listAssoc2[$assocKeys[$key2]]);
+    $listAssoc2[$assocKeys[$key2]] = $tmp;
+}
+
+echo '<pre>';
+print_r($listAssoc2);
+echo '</pre>';
+
+
