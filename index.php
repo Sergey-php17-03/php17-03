@@ -15,65 +15,12 @@ for ($i = 0; $i < $count/2; $i++) {
 echo '<pre>';
 print_r($list);
 echo '</pre>';
+?>
 
+<form action = "array_assoc_mixingV2_0.php" method = "post">
+    <h3><p align="center"><input type ="submit" value="Перемешать 2 массива (key & values)." name="submit"></p></h3>
+</form>
 
-// array_assoc_mixing
-
-$listAssoc = array(
-    "1" => 'one',
-    "2" => 'two',
-    "3" => 'three',
-    "4" => 'four',
-    'A' => '[ei]',
-    'B' => '[bi:]',
-    'C' => '[si:]',
-    'D' => '[di:]',
-    'F' => '[ef]'
-);
-
-$count2 = count($listAssoc);
-
-for ($i = 0; $i < $count2 / 2; $i++) {
-    $assocKeys = array_keys($listAssoc);
-    $tmp = $listAssoc[$assocKeys[$i]];
-    $key = rand(0, $count2 - 1);
-
-    $listAssoc[$assocKeys[$i]] = $listAssoc[$assocKeys[$key]];
-    $listAssoc[$assocKeys[$key]] = $tmp;
-}
-
-echo '<pre>';
-print_r($listAssoc);
-echo '</pre>';
-
-
-// array_assoc_mixing -key => value is tied
-
-$listAssoc2 = array(
-    "1" => 'one',
-    "2" => 'two',
-    "3" => 'three',
-    "4" => 'four',
-    'A' => '[ei]',
-    'B' => '[bi:]',
-    'C' => '[si:]',
-    'D' => '[di:]',
-    'F' => '[ef]'
-);
-
-$count3 = count($listAssoc2);
-
-for ($i = 0; $i < $count3 / 2; $i++) {
-    $assocKeys = array_keys($listAssoc2);
-    $key2 = rand(0, $count3 - 1);
-    $tmp = $listAssoc2[$assocKeys[$key2]];
-
-    unset($listAssoc2[$assocKeys[$key2]]);
-    $listAssoc2[$assocKeys[$key2]] = $tmp;
-}
-
-echo '<pre>';
-print_r($listAssoc2);
-echo '</pre>';
-
-
+<form action = "array_assoc_mixing.php" method = "post">
+    <h3><p align="center"><input type ="submit" value="Перемешать(через перебрасование в конец массива)." name="submit"></p></h3>
+</form>
