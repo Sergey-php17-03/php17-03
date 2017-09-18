@@ -35,7 +35,7 @@ for ($i = 0; $i < $count / 2; $i++) {
     
 }
 
-for ($i = 0; $i < $count; $i++){
+for ($i = 0; $i < $count - 1; $i++){
 $listAssocNew[$assocKeys[$i]] = $assocValue[$i]; 
 }
 
