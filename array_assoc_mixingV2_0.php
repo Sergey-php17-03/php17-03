@@ -34,10 +34,7 @@ for ($i = 0; $i < $count / 2; $i++) {
     $assocValue[$key] = $tmpValue;   
     
 }
-
-for ($i = 0; $i < $count; $i++){
-$listAssocNew[$assocKeys[$i]] = $assocValue[$i]; 
-}
+$listAssocNew = array_combine ($assocKeys, $assocValue);
 
 echo '<pre>';
 print_r($listAssocNew);
