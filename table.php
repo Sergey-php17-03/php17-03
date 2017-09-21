@@ -36,23 +36,25 @@ $sort = $_GET['sort'];
 $count = count($cars);
 $flag = function ($sort){
     static $sort;
-    $metod = $sort%2;
-    $mnemo = array ('&#9660', '&#9650');
-    return (string) $mnemo[$sort];
+    if (empty($sort)){
+        $method = 3;
+    }else{$method = $sort%2;}
+    $mnemo = array ('&#9660', '&#9650', ' ');
+    return (string) $mnemo[$method];
 };
 // generate table
 echo '<form action="/table.php" method="GET">
 <table border="1" width="500">
     <thead >
         <tr>
-            <th>'; echo $flag($sort); echo'<input type="submit" name="sort" value="Auto"/></th>
-            <th>'; echo $flag($sort); echo'<input type="button" name="sort" value="Warranty Service"/></th>
-            <th>'; echo $flag($sort); echo'<input type="button" name="sort" value="Price (Million)"/></th>
+            <th>'; echo $flag($sort); echo'<button name="sort" value="1">Auto</button></th>
+            <th>'; echo $flag($sort); echo'<button name="sort" value="1">Warranty Service</button></th>
+            <th>'; echo $flag($sort); echo'<button name="sort" value="1">Price (Million)</button></th>
         </tr>
         <tr>
-            <th>'; echo $flag($sort); echo'<input type="text" name="searchAuto" value=""/></th>
-            <th>'; echo $flag($sort); echo'<input type="text" name="$searchWarrantyService" value=""/></th>
-            <th>'; echo $flag($sort); echo'<input type="text" name="$searchPrice" value=""/></th>
+            <th><input type="text" name="searchAuto" value=""/></th>
+            <th><input type="text" name="$searchWarrantyService" value=""/></th>
+            <th><input type="text" name="$searchPrice" value=""/></th>
         </tr>
         
     </thead>
