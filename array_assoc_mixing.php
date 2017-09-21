@@ -19,6 +19,8 @@ for ($i = 10; $i < 1000000; $i++){
     $listAssoc[$i] = $i;    
 }
 
+$mixStart = microtime(true);
+
 $count = count($listAssoc);
 $assocKeys = array_keys($listAssoc);
 
@@ -29,8 +31,11 @@ for ($i = 0; $i < $count / 2; $i++) {
     unset($listAssoc[$assocKeys[$key]]);
     $listAssoc[$assocKeys[$key]] = $tmp;
 }
+$mixFinish = microtime(true);
+
+echo $mixFinish - $mixStart;
 
 echo '<pre>';
-print_r($listAssoc);
+//print_r($listAssoc);
 echo '</pre>';
 ?>

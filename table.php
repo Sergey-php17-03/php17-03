@@ -46,7 +46,7 @@ echo '<form action="/table.php" method="GET">
     <thead >
         <tr>
             <th>'; echo $flag($sort); echo'<input type="submit" name="sort" value="Auto"/></th>
-            <th>'; echo $flag($sort); echo'<input type="button" name="sort" value="Warranty Service"/></th>
+            <th>'; echo $flag($sort); echo'<input type="button" name="sort" onclick="levelsudvr = 1"value="Warranty Service"/></th>
             <th>'; echo $flag($sort); echo'<input type="button" name="sort" value="Price (Million)"/></th>
         </tr>
         <tr>
