@@ -39,7 +39,10 @@ $flag = function ($sort){
     if (empty($sort)){
         $method = 3;
     }else{$method = $sort%2;}
-    $mnemo = array ('&#9660', '&#9650', ' ');
+    $mnemo = array (
+        '&#9660',
+        '&#9650',
+        ' ');
     return (string) $mnemo[$method];
 };
 // generate table

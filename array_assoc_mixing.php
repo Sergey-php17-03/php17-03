@@ -2,20 +2,21 @@
 
 // array_assoc_mixing -key => value is tied
 
-$listAssoc = array(
-    "1" => 'one',
-    "2" => 'two',
-    "3" => 'three',
-    "4" => 'four',
-    'A' => '[ei]',
-    'B' => '[bi:]',
-    'C' => '[si:]',
-    'D' => '[di:]',
-    'F' => '[ef]'
-);
+//$listAssoc = array(
+//    "1" => 'one',
+//    "2" => 'two',
+//    "3" => 'three',
+//    "4" => 'four',
+//    'A' => '[ei]',
+//    'B' => '[bi:]',
+//    'C' => '[si:]',
+//    'D' => '[di:]',
+//    'F' => '[ef]'
+//);
 
+$arrayCount = $_POST['count'];
 
-for ($i = 10; $i < 1000000; $i++){
+for ($i = 0; $i < $arrayCount; $i++){
     $listAssoc[$i] = $i;    
 }
 

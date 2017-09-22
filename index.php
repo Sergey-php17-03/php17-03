@@ -12,15 +12,20 @@ for ($i = 0; $i < $count/2; $i++) {
     $list[$i] = $list[$key];
     $list[$key] = $tmp;
 }
-echo '<pre>';
-print_r($list);
-echo '</pre>';
-?>
 
+?>
+<a href="/table.php">Дз таблица</a>
 <form action = "array_assoc_mixingV2_0.php" method = "post">
+    <p align="center"><input type="number" name="count" placeholder="элементов в массиве" required></p>
     <h3><p align="center"><input type ="submit" value="Перемешать 2 массива (key & values)." name="submit"></p></h3>
 </form>
 
 <form action = "array_assoc_mixing.php" method = "post">
+    <p align="center"><input type="number" name="count" placeholder="элементов в массиве" required></p>
     <h3><p align="center"><input type ="submit" value="Перемешать(через перебрасование в конец массива)." name="submit"></p></h3>
 </form>
+<?php
+echo '<pre>';
+print_r($list);
+echo '</pre>';
+?>
