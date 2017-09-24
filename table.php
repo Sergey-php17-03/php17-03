@@ -27,15 +27,23 @@ $cars = array
     array("Land Rover", 17, 15)
 );
 
+$sortMethod = [0, 1, 2,];
+
 function flag($key) {
-    static $flag = [0, 0, 0,];
     $flag[$key] ++;
     return $flag;
 }
 
+// data form
 if (isset($_GET['key'])) {
     $key = $_GET['key'];
     $flag = flag($key);
+}
+
+if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+    array_filter($search);
+    
 }
 
 $direction = [
@@ -44,14 +52,36 @@ $direction = [
     '2' => '&#9650',
 ];
 
+$search = function ($search) {
+    foreach ($search AS $key) {
+        array_column($cars, $key);
+        foreach ($cars AS $item) {
+            $str = htmlspecialchars($item);
+            if (!stripos($str, $search)) {
+                unset($cars[$car]);
+            }
+        }
+    }
+};
+
 $rSorter = function ($a, $b) use ($key) {
+    $key = substr($key, 0, -2);
     return strnatcmp($b[$key], $a[$key]);
 };
 $sorter = function ($a, $b) use ($key) {
     return strnatcmp($a[$key], $b[$key]);
 };
 
-usort($cars, $sorter);
+if (strlen($key) < 2) {
+    usort($cars, $sorter);
+    $sortMethod[$key] = $key . '00';
+    
+} else {
+    usort($cars, $rSorter);
+    $tmp = substr($key, 0, -2);
+    $sortMethod[$tmp] = $tmp;
+    $flag[$tmp]= '2';
+}
 
 // generate table
 
@@ -63,14 +93,14 @@ echo '<form action="/table.php" method="GET">
 <table border="1" width="500">
     <thead >
         <tr>
-            <th>' . $direction[$flag[0]] . '<button name="key" value="0">Auto</button></th>
-            <th>' . $direction[$flag[1]] . '<button name="key" value="1">Warranty Service</button></th>
-            <th>' . $direction[$flag[2]] . '<button name="key" value="2">Price (Million)</button></th>
+            <th>' . $direction[$flag[0]] . '<button name="key" value="' . $sortMethod[0] . '">Auto</button></th>
+            <th>' . $direction[$flag[1]] . '<button name="key" value="' . $sortMethod[1] . '">Warranty Service</button></th>
+            <th>' . $direction[$flag[2]] . '<button name="key" value="' . $sortMethod[2] . '">Price (Million)</button></th>
         </tr>
         <tr>
-            <th><input type="text" name="search[Auto]" value=""/></th>
-            <th><input type="text" name="search[Warranty]" value=""/></th>
-            <th><input type="text" name="search[Price]" value=""/></th>
+            <th><input type="text" name="search[0]" value=""/></th>
+            <th><input type="text" name="search[1]" value=""/></th>
+            <th><input type="text" name="search[2]" value=""/></th>
         </tr>
         
     </thead>
@@ -87,4 +117,3 @@ foreach ($cars AS $item) {
 echo'</tbody>
 </table>
     </form>';
-
