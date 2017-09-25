@@ -40,10 +40,9 @@ if (isset($_GET['key'])) {
     $flag = flag($key);
 }
 
-if (isset($_GET['search'])) {
-    $search = $_GET['search'];
-    array_filter($search);
-    
+if (isset($_GET['filter'])) {
+    $filter = $_GET['filter'];
+    $filter = array_filter($filter);    
 }
 
 $direction = [
@@ -52,17 +51,13 @@ $direction = [
     '2' => '&#9650',
 ];
 
-$search = function ($search) {
-    foreach ($search AS $key) {
-        array_column($cars, $key);
-        foreach ($cars AS $item) {
-            $str = htmlspecialchars($item);
-            if (!stripos($str, $search)) {
-                unset($cars[$car]);
-            }
-        }
+$filterFunk = function ($val) use ($filter) {
+    foreach ($filter AS $key => $textFilter) {
+        return $val[$key] == $textFilter;
     }
 };
+
+//$cars = array_filter($cars, $filterFunk($val));
 
 $rSorter = function ($a, $b) use ($key) {
     $key = substr($key, 0, -2);
@@ -98,9 +93,9 @@ echo '<form action="/table.php" method="GET">
             <th>' . $direction[$flag[2]] . '<button name="key" value="' . $sortMethod[2] . '">Price (Million)</button></th>
         </tr>
         <tr>
-            <th><input type="text" name="search[0]" value=""/></th>
-            <th><input type="text" name="search[1]" value=""/></th>
-            <th><input type="text" name="search[2]" value=""/></th>
+            <th><input type="text" name="filter[0]" value=""/></th>
+            <th><input type="number" name="filter[1]" value=""/></th>
+            <th><input type="number" name="filter[2]" value=""/></th>
         </tr>
         
     </thead>
