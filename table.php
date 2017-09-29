@@ -21,62 +21,51 @@
 // есть массив машин
 $cars = array
     (
-    array("Volvo", 22, 18),
-    array("BMW", 15, 13),
-    array("Saab", 5, 20),
-    array("Land Rover", 17, 15)
+    array('Auto' => "Volvo", 'Warranty Service' => 22, 'Price' => 18),
+    array('Auto' => "BMW", 'Warranty Service' => 15, 'Price' => 13),
+    array('Auto' => "Saab", 'Warranty Service' => 5, 'Price' => 20),
+    array('Auto' => "Land Rover", 'Warranty Service' => 17, 'Price' => 15)
 );
+$columsNames = array_keys($cars[0]);
+$order = [
+    'Auto' => 'asc',
+    'Warranty Service' => '',
+    'Price' => ''
+];
 
-$sortMethod = [0, 1, 2,];
-
-function flag($key) {
-    $flag[$key] ++;
-    return $flag;
-}
+$searchFunc = function ($val) use ($search) {
+    foreach ($search AS $key => $textsearch) {
+        return stripos($val[$key], $textsearch) !== false;
+    }
+};
 
 // data form
 if (isset($_GET['key'])) {
     $key = $_GET['key'];
-    $flag = flag($key);
-}
+    $order[$key] = $_GET['order'];
+};
 
-if (isset($_GET['filter'])) {
-    $filter = $_GET['filter'];
-    $filter = array_filter($filter);    
+if (!empty($search)) {
+    $search = $_GET['search'];
+    $search = array_filter($search);
+    //$cars = array_filter($cars, $filterFunk($val));
 }
 
 $direction = [
-    '0' => '',
-    '1' => '&#9660',
-    '2' => '&#9650',
+    '' => '',
+    'asc' => '&#9660',
+    'desc' => '&#9650',
 ];
 
-$filterFunk = function ($val) use ($filter) {
-    foreach ($filter AS $key => $textFilter) {
-        return $val[$key] == $textFilter;
-    }
-};
 
-//$cars = array_filter($cars, $filterFunk($val));
-
-$rSorter = function ($a, $b) use ($key) {
-    $key = substr($key, 0, -2);
-    return strnatcmp($b[$key], $a[$key]);
+$sorter = function ($a, $b) use ($key, $order) {
+    $args = [
+        'asc' => 1,
+        'desc' => -1
+    ];
+    return strnatcmp($a[$key], $b[$key]) * $args[$order[$key]];
 };
-$sorter = function ($a, $b) use ($key) {
-    return strnatcmp($a[$key], $b[$key]);
-};
-
-if (strlen($key) < 2) {
-    usort($cars, $sorter);
-    $sortMethod[$key] = $key . '00';
-    
-} else {
-    usort($cars, $rSorter);
-    $tmp = substr($key, 0, -2);
-    $sortMethod[$tmp] = $tmp;
-    $flag[$tmp]= '2';
-}
+usort($cars, $sorter);
 
 // generate table
 
@@ -84,19 +73,28 @@ function column($data) {
     echo "<td>$data</td>";
 }
 
+if ($order[$key] == 'asc') {
+    $order[$key = 'desc'];
+} else {
+    $order[$key] = 'asc';
+};
+
 echo '<form action="/table.php" method="GET">
 <table border="1" width="500">
     <thead >
-        <tr>
-            <th>' . $direction[$flag[0]] . '<button name="key" value="' . $sortMethod[0] . '">Auto</button></th>
-            <th>' . $direction[$flag[1]] . '<button name="key" value="' . $sortMethod[1] . '">Warranty Service</button></th>
-            <th>' . $direction[$flag[2]] . '<button name="key" value="' . $sortMethod[2] . '">Price (Million)</button></th>
-        </tr>
-        <tr>
-            <th><input type="text" name="filter[0]" value=""/></th>
-            <th><input type="number" name="filter[1]" value=""/></th>
-            <th><input type="number" name="filter[2]" value=""/></th>
-        </tr>
+    <tr>';
+
+foreach ($columsNames AS $columName) {
+    $data = $direction[$order[$columName]] . '<button name="key" value="' . $columName . '&order= '. $order[$columName] . '">' . $columName . '</button>';
+    column($data);
+}
+echo '</tr>
+    <tr>';
+foreach ($columsNames AS $columName) {
+    $data = '<input type="text" name="filter[' . $columName . '] value=""/>';
+    column($data);
+}
+echo '</tr>
         
     </thead>
     <tbody >';
