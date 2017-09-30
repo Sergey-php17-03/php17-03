@@ -47,7 +47,7 @@ if (isset($_GET['key'])) {
     $search = $_GET['search'];
     $search = array_filter($search);
 }
-print_r($order);
+
 $searchFunc = function ($val) use ($search) {
     foreach ($search AS $key => $textsearch) {
         return stripos($val[$key], $textsearch) !== false;
