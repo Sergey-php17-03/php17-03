@@ -26,40 +26,41 @@ $cars = array
     array('Auto' => "Saab", 'Warranty Service' => 5, 'Price' => 20),
     array('Auto' => "Land Rover", 'Warranty Service' => 17, 'Price' => 15)
 );
+
 $columsNames = array_keys($cars[0]);
 $order = [
-    'Auto' => 'asc',
-    'Warranty Service' => '',
-    'Price' => ''
+    'Auto' => '0',
+    'Warranty Service' => '0',
+    'Price' => '0'
 ];
 
+$direction = [
+    '0' => '',
+    'desc' => '&#9660',
+    'asc' => '&#9650',
+];
+
+// data form
+if (isset($_GET['key'])) {       
+    $key = substr($_GET['key'], 0, stripos($_GET['key'], '#'));
+    $order[$key] = substr($_GET['key'], stripos($_GET['key'], '#')+1);
+    $search = $_GET['search'];
+    $search = array_filter($search);
+}
+print_r($order);
 $searchFunc = function ($val) use ($search) {
     foreach ($search AS $key => $textsearch) {
         return stripos($val[$key], $textsearch) !== false;
     }
 };
 
-// data form
-if (isset($_GET['key'])) {
-    $key = $_GET['key'];
-    $order[$key] = $_GET['order'];
-};
-
 if (!empty($search)) {
-    $search = $_GET['search'];
-    $search = array_filter($search);
-    //$cars = array_filter($cars, $filterFunk($val));
+    $cars = array_filter($cars, $searchFunc);
 }
-
-$direction = [
-    '' => '',
-    'asc' => '&#9660',
-    'desc' => '&#9650',
-];
-
 
 $sorter = function ($a, $b) use ($key, $order) {
     $args = [
+        '0' => 1,
         'asc' => 1,
         'desc' => -1
     ];
@@ -73,8 +74,8 @@ function column($data) {
     echo "<td>$data</td>";
 }
 
-if ($order[$key] == 'asc') {
-    $order[$key = 'desc'];
+if ($order[$key] == 'asc'  || $order[$key] == '0' ) {
+    $order[$key] = 'desc';
 } else {
     $order[$key] = 'asc';
 };
@@ -85,17 +86,17 @@ echo '<form action="/table.php" method="GET">
     <tr>';
 
 foreach ($columsNames AS $columName) {
-    $data = $direction[$order[$columName]] . '<button name="key" value="' . $columName . '&order= '. $order[$columName] . '">' . $columName . '</button>';
+    $data = '<button name="key" value="'. $columName .'#'. $order[$columName] . '">'
+        .$direction[$order[$columName]] .' '. $columName . '</button>';
     column($data);
 }
-echo '</tr>
-    <tr>';
+echo '</tr><tr>';
+
 foreach ($columsNames AS $columName) {
-    $data = '<input type="text" name="filter[' . $columName . '] value=""/>';
+    $data = '<input type="text" name="search[' . $columName . ']" value=""/>';
     column($data);
 }
-echo '</tr>
-        
+echo '</tr>        
     </thead>
     <tbody >';
 
@@ -106,7 +107,6 @@ foreach ($cars AS $item) {
     }
     echo '</tr>';
 }
-
 echo'</tbody>
 </table>
     </form>';
