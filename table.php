@@ -41,11 +41,11 @@ $direction = [
 ];
 
 // data form
-if (isset($_GET['key'])) {       
-    $key = substr($_GET['key'], 0, stripos($_GET['key'], '#'));
-    $order[$key] = substr($_GET['key'], stripos($_GET['key'], '#')+1);
-    $search = $_GET['search'];
-    $search = array_filter($search);
+
+if (isset($_GET['key'])) { 
+    list($key, $tmp) = explode('#', $_GET['key']);
+    $order[$key] = $tmp;
+    $search = array_fill($_GET['search']);
 }
 
 $searchFunc = function ($val) use ($search) {
