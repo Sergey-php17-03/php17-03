@@ -45,7 +45,7 @@ $direction = [
 if (isset($_GET['key'])) { 
     list($key, $tmp) = explode('#', $_GET['key']);
     $order[$key] = $tmp;
-    $search = array_fill($_GET['search']);
+    $search = array_filter($_GET['search']);
 }
 
 $searchFunc = function ($val) use ($search) {
