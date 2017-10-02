@@ -14,6 +14,7 @@ for ($i = 0; $i < $count/2; $i++) {
 }
 
 ?>
+<a href="/regular.php">ДЗ Регулярные выражения</a><br><br>
 <a href="/table.php">Дз таблица</a>
 <form action = "array_assoc_mixingV2_0.php" method = "post">
     <p align="center"><input type="number" name="count" placeholder="элементов в массиве" required></p>
