@@ -80,5 +80,4 @@ echo '<form action="/regular.php" method="POST">
     <button name="submit" value="patternStrict"/><b>Строгий<br> шаблон</b></button>
     <button name="submit" value="patternLevelUp"/><b>Лояльный<br> шаблон</b></button>
 <p>* При нажатии кнопки с пустой формой, результатом будет проверка 1-го случайного номера из списка в задании.</p>
-</form>
-';
+</form>';
