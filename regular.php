@@ -4,18 +4,7 @@
 //нужно проверять является ли номер корректно введенным украинским и номером мобильного оператора
 //рассматривать формат
 //+38(098)765-43-21
-
 //усложнение, чтобы регулярка любой вариант рассматривала
-//0987654321
-//(098)7654321
-//098 765 43 21
-//098-765-43-21
-//+380987654321
-//+380 98 765 43 21
-//(+380) 987654321
-//(+38) 0987654321
-//и т.д.
-//пробелы в начале и конце можно срезать через trim
 
 $operator = [
     '039' => 'Киевстар (Golden Telecom)',
@@ -24,6 +13,7 @@ $operator = [
     '066' => 'МТС',
     '067' => 'Киевстар',
     '068' => 'Киевстар (Beeline)',
+    '073' => 'lifecell',
     '091' => 'Utel',
     '092' => 'PEOPLEnet',
     '093' => 'lifecell',
@@ -46,38 +36,48 @@ $defaultNumber = [
     '(+380) 987654321',
     '(+38) 0987654321'
 ];
-$patternStrict = '#^\+38\((039|050|06[3678]|09[1-9])\)([0-9]{3})-([0-9]{2})-([0-9]{2})#';
-$patternLevelUp = '#^\(?\+?(38|8)?\)? ?\(?0\)? ?(39|50|6[3678]|73|9[1-9])\)?(-| )?([0-9]{3})(-| )?([0-9]{2})(-| )?([0-9]{2})#';
+
+$checkText = [
+    'ok' => 'Номер обслуживается мобильным оператором - %s',
+    'error' => ' Проверьте правильность ввода.',
+];
+
+$pattern = [
+    'strict' => [
+        'pattern' => '#^\+38\((039|050|06[3678]|073|09[1-9])\)\d{3}(-\d{2}){2}$#',
+        'buttonName' => 'Строгий<br> шаблон'
+    ],
+    'loyal' => [
+        'pattern' => '#^\(?\+?3?8?\)? ?\(?0\)? ?(39|50|6[3678]|73|9[1-9])\)?([-| ]*\d){7}$#',
+        'buttonName' => 'Лояльный<br> шаблон'
+    ]
+];
 
 // form data
 
 if (isset($_POST['submit'])) {
-    $pattern = $$_POST['submit'];
+    $phone = trim($_POST['phone']) ?: $phone = $defaultNumber[mt_rand(0, 8)];
+// АДЕКВАТНО ЛИ РЕШЕНИЕ???
+    $checkNumber = $checkText['error'];
 
-    if (!empty($_POST['phone'])) {
-        $phone = trim($_POST['phone']);
-    } else {
-        $phone = $defaultNumber[rand(0, 8)];
-    }
-
-    if (preg_match($pattern, $phone, $rezult)) {
+    if (preg_match($pattern[$_POST['submit']][pattern], $phone, $rezult)) {
         $code = [
-            'patternStrict' => "$rezult[1]",
-            'patternLevelUp' => '0' . $rezult[2]
+            'strict' => "$rezult[1]",
+            'loyal' => '0' . $rezult[1]
         ];
-        $checkNumber = 'Номер обслуживается мобильным оператором - ' . $operator[$code[$_POST['submit']]];
-    } else {
-        $checkNumber = ' Что-то пошло не так.';
+        $checkNumber = sprintf($checkText['ok'], $operator[$code[$_POST['submit']]]);
     }
 }
 
 // form view
 
-echo '<form action="/regular.php" method="POST">
+    echo '<form action="/regular.php" method="POST">
     <p>Номер мобильного телефона в Украине*</p>
     <input type="tel" name="phone" placeholder="+38(0__)___-__-__" value="' . $phone . '" /><br>'
- . $checkNumber . '<br><br>
-    <button name="submit" value="patternStrict"/><b>Строгий<br> шаблон</b></button>
-    <button name="submit" value="patternLevelUp"/><b>Лояльный<br> шаблон</b></button>
-<p>* При нажатии кнопки с пустой формой, результатом будет проверка 1-го случайного номера из списка в задании.</p>
+    . $checkNumber . '<br><br>';
+    foreach ($pattern as $value => $properties) {
+        echo '<button name="submit" value="' . $value . '"/><b>' . $properties['buttonName'] . '</b></button>';
+    }
+    echo '<p>* При нажатии кнопки с пустой формой, результатом будет проверка 1-го случайного номера из списка в задании.</p>
 </form>';
+    
