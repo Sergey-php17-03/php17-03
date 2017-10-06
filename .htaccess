@@ -1,4 +1,5 @@
 ﻿AddDefaultCharset utf-8
 
+# www -> nowww
 RewriteCond %{HTTP_HOSR} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://$1 [R]
