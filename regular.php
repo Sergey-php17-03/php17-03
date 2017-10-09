@@ -71,13 +71,12 @@ if (isset($_POST['submit'])) {
 
 // form view
 
-    echo '<form action="/regular.php" method="POST">
+echo '<form action="/regular.php" method="POST">
     <p>Номер мобильного телефона в Украине*</p>
     <input type="tel" name="phone" placeholder="+38(0__)___-__-__" value="' . $phone . '" /><br>'
-    . $checkNumber . '<br><br>';
-    foreach ($pattern as $value => $properties) {
-        echo '<button name="submit" value="' . $value . '"/><b>' . $properties['buttonName'] . '</b></button>';
-    }
-    echo '<p>* При нажатии кнопки с пустой формой, результатом будет проверка 1-го случайного номера из списка в задании.</p>
+ . $checkNumber . '<br><br>';
+foreach ($pattern as $value => $properties) {
+    echo '<button name="submit" value="' . $value . '"/><b>' . $properties['buttonName'] . '</b></button>';
+}
+echo '<p>* При нажатии кнопки с пустой формой, результатом будет проверка 1-го случайного номера из списка в задании.</p>
 </form>';
-    
