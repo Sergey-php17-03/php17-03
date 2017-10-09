@@ -43,7 +43,7 @@ $direction = [
 // data form
 
 if (isset($_GET['key'])) { 
-    list($key, $tmp) = explode('#', $_GET['key']);
+    list($key, $tmp) = explode('.', $_GET['key']);
     $order[$key] = $tmp;
     $search = array_filter($_GET['search']);
 }
@@ -86,7 +86,7 @@ echo '<form action="/table.php" method="GET">
     <tr>';
 
 foreach ($columsNames AS $columName) {
-    $data = '<button name="key" value="'. $columName .'#'. $order[$columName] . '">'
+    $data = '<button name="key" value="'. $columName .'.'. $order[$columName] . '">'
         .$direction[$order[$columName]] .' '. $columName . '</button>';
     column($data);
 }
