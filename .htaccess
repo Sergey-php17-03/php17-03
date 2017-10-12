@@ -3,5 +3,7 @@
 # www -> nowww  + http -> https
 
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+
+RewriteCond %{HTTP:X-HTTPS} !1 [OR]
+RewriteCond %{HTTP_HOST}  ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ https://%1/$1 [R,L]
