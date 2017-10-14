@@ -3,7 +3,6 @@
 Options -Indexes +MultiViews
 
 # www -> nowww  + http -> https
-
 RewriteEngine On
 
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
