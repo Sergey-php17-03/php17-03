@@ -14,9 +14,10 @@ for ($i = 0; $i < $count/2; $i++) {
 }
 
 ?>
-<a href="/regular.php">ДЗ Регулярные выражения</a><br><br>
+<a href="/test.php">OOП</a><br>
+<a href="/regular.php">ДЗ Регулярные выражения</a><br>
 <a href="/table.php">Дз таблица</a>
-<a href="/test.php">OOП</a>
+
 <form action = "array_assoc_mixingV2_0.php" method = "post">
     <p align="center"><input type="number" name="count" placeholder="элементов в массиве" required></p>
     <h3><p align="center"><input type ="submit" value="Перемешать 2 массива (key & values)." name="submit"></p></h3>
