@@ -5,7 +5,7 @@ namespace sandbox;
 require_once 'traits.php';
 interface hello {
 
-    public static function helloWorld();
+    public function helloWorld();
 }
 
 abstract class OODtry {
@@ -24,7 +24,7 @@ class test extends OODtry implements hello {
         echo "Новый объект по имени '$this->name', класса test успешно создан.<br>";
     }
 
-    public static function helloWorld() {
+    public function helloWorld() {
         
         echo $this->name . ' speak: ' . get_class_methods(get_class())[1];
     }
