@@ -14,6 +14,7 @@ for ($i = 0; $i < $count/2; $i++) {
 }
 
 ?>
+<a href="/pdo.php">PDO</a><br>
 <a href="/test.php">OOП</a><br>
 <a href="/regular.php">ДЗ Регулярные выражения</a><br>
 <a href="/table.php">Дз таблица</a>
