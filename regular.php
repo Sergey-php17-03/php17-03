@@ -59,7 +59,7 @@ $pattern = [
 
 if (isset($_POST['submit'])) {
     $phone = trim($_POST['phone']) ?: $phone = $defaultNumber[mt_rand(0, 8)];
-// АДЕКВАТНО ЛИ РЕШЕНИЕ???
+
     $checkNumber = $checkText['error'];
 
     if (preg_match($pattern[$_POST['submit']]['pattern'], $phone, $rezult)) {
