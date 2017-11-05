@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
 
 // form view
 
-    echo '<form action="/regular.php" method="POST">
+    echo '<form action="/" method="POST">
     <p>Номер мобильного телефона в Украине*</p>
     <input type="tel" name="phone" placeholder="+38(0__)___-__-__" value="' . $phone . '" /><br>'
     . $checkNumber . '<br><br>';

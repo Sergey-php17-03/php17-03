@@ -1,10 +1,10 @@
 <?php
 
 $db_params = [
-    'host' => 'localhost',
-    'dbname' => 'php17-03',
-    'user' => 'root',
-    'pass' => '',
+    'host' => 'php1703.vps.asdat.org',
+    'dbname' => 'php1703_8_db',
+    'user' => 'php1703_8_user',
+    'pass' => 'WPtXdtM92A',
 ];
 
 try {

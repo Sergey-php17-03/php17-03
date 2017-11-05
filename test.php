@@ -1,10 +1,7 @@
 <?php
-
 namespace testing;
-require_once 'helloOOD.php';
+require_once __DIR__ .'/helloOOD.php';
     use \sandbox\test as TEst;
-
-require_once 'helloOOD.php';
 
 $test1 = new TEst(First);
 echo '<br>';

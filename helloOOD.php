@@ -1,8 +1,7 @@
 <?php
-
 namespace sandbox;
+require_once __DIR__ .'/traits.php';
 
-require_once 'traits.php';
 interface hello {
 
     public function helloWorld();
@@ -21,7 +20,7 @@ class test extends OODtry implements hello {
 
     public function __construct($name = 'Безимянный') {
         $this->name = $name;
-        echo "Новый объект по имени '$this->name', класса test успешно создан.<br>";
+        echo "<br>Новый объект по имени '$this->name', класса test успешно создан.<br>";
     }
 
     public function helloWorld() {
@@ -32,6 +31,7 @@ class test extends OODtry implements hello {
     public function iHave() {
         $methods = get_class_methods(get_class());
         $i = 1;
+        $func = '';
 
         echo $this->name . ' have: ';
         foreach ($methods as $method) {

@@ -80,7 +80,7 @@ if ($order[$key] == 'asc'  || $order[$key] == '0' ) {
     $order[$key] = 'asc';
 };
 
-echo '<form action="/table.php" method="GET">
+echo '<form action="/" method="GET">
 <table border="1" width="500">
     <thead >
     <tr>';
