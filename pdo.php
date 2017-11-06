@@ -19,6 +19,7 @@ $userAdd->bindParam(':name', $userName);
 $userAdd->bindParam(':role', $role);
 
 $usersNew = [
+    'Aleksandr Datsko',
     'Andrey Kormush',
     'Denis Nekrasov',
     'Evgeniy Subbota',

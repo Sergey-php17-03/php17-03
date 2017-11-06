@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-ini_set('display_errors', 'on');
+//ini_set('display_errors', 'on');
+
 // array_mixing
 
 $list = array(1, 2, 3, 4, 5, 'A', 'B', 'C', 'D', 'F');
