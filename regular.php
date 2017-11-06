@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 //к нам на PHP приходит телефон, пусть $_POST['phone']
 //нужно проверять является ли номер корректно введенным украинским и номером мобильного оператора
@@ -46,12 +46,12 @@ $pattern = [
     'strict' => [
         'pattern' => '#^\+38\((039|050|06[3678]|073|09[1-9])\)\d{3}(-\d{2}){2}$#',
         'buttonName' => 'Строгий<br> шаблон',
-        'code' => "$rezult[1]"
+        'code' => ""
     ],
     'loyal' => [
-        'pattern' => '#^\(?\+?3?8?\)? ?\(?0\)? ?(39|50|6[3678]|73|9[1-9])\)?([-| ]*\d){7}$#',
+        'pattern' => '#^\D*\(?\+?3?8?\)? ?\(?0\)? ?(39|50|6[3678]|73|9[1-9])\)?(\D*\d){7}\D*$#',
         'buttonName' => 'Лояльный<br> шаблон',
-        'code' => "0$rezult[1]"
+        'code' => "0"
     ]
 ];
 
@@ -63,21 +63,21 @@ if (isset($_POST['submit'])) {
     $checkNumber = $checkText['error'];
 
     if (preg_match($pattern[$_POST['submit']]['pattern'], $phone, $rezult)) {
-        $code = eval($pattern[$_POST['submit']]['code']);
-        echo $code;
+
+        $code = $pattern[$_POST['submit']]['code'] . $rezult[1];
+
         $checkNumber = sprintf($checkText['ok'], $operator[$code]);
     }
 }
 
 // form view
 
-    echo '<form action="/" method="POST">
+echo '<form action="/" method="POST">
     <p>Номер мобильного телефона в Украине*</p>
     <input type="tel" name="phone" placeholder="+38(0__)___-__-__" value="' . $phone . '" /><br>'
-    . $checkNumber . '<br><br>';
-    foreach ($pattern as $value => $properties) {
-        echo '<button name="submit" value="' . $value . '"/><b>' . $properties['buttonName'] . '</b></button>';
-    }
-    echo '<p>* При нажатии кнопки с пустой формой, результатом будет проверка 1-го случайного номера из списка в задании.</p>
+ . $checkNumber . '<br><br>';
+foreach ($pattern as $value => $properties) {
+    echo '<button name="submit" value="' . $value . '"/><b>' . $properties['buttonName'] . '</b></button>';
+}
+echo '<p>* При нажатии кнопки с пустой формой, результатом будет проверка 1-го случайного номера из списка в задании.</p>
 </form>';
-    
