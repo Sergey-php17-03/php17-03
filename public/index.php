@@ -1,6 +1,7 @@
 <?php
 
-session_start();
+session_start;
+
 //ini_set('display_errors', 'on');
 
 // array_mixing
